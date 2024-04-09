@@ -5,22 +5,35 @@ val SampleCats  = listOf(
     CatData(
         id = "1",
         raceName = "Scotish",
-        details = "Race that love to climb."
+        lifeSpan = "7 - 12",
+        details = "Race that love to climb.",
+        imagePath = "scotish.jpg",
+        traitList = emptyList()
     ),
     CatData(
         id = "2",
-        raceName = "Britanska",
-        details = "Short haired cat with a long tail."
+        raceName = "British",
+        lifeSpan = "4 - 8",
+        details = "Short haired cat with a long tail.",
+        imagePath = "british.jpg",
+        traitList = emptyList()
+
     ),
     CatData(
         id = "3",
         raceName = "Sphynx",
-        details = "Whithout a hair at all."
+        lifeSpan = "12 - 34",
+        details = "Whithout a hair at all.",
+        imagePath = "Sphynx.jpg",
+        traitList = emptyList()
     ),
     CatData(
         id = "4",
         raceName = "Persian",
-        details = "Gods above all other races"
+        lifeSpan = "5 - 15",
+        details = "Gods above all other races",
+        imagePath = "Persian.jpg",
+        traitList = emptyList()
     ),
 
 )

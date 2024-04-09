@@ -1,9 +1,7 @@
 package com.example.catalist
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,10 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
@@ -26,15 +21,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.example.catalist.ui.theme.CatalistTheme
 
@@ -42,7 +34,7 @@ import com.example.catalist.ui.theme.CatalistTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HelloComp(
+fun CatsListScreen(
     cats : List<CatData>,
     onCatClick: (CatData) -> Unit
 ) {
@@ -120,22 +112,39 @@ private fun CatListItem(
     ) {
 
         Column() {
+
             Text(
                 modifier = Modifier.padding(all = 16.dp)
                 ,text = cat.raceName
 
             )
-
             Row{
+//                Image(
+//                    painter = painterResource(id = context.resources.getIdentifier("cat", "drawable", context.packageName)),
+//                    contentDescription = "cat",
+//                    modifier = Modifier
+//                        .size(25.dp)
+//                        .padding(horizontal = 16.dp, vertical = 8.dp)
+//                )
+//                Image(
+//                        modifier = Modifier.size(
+//                            width = 25.dp,
+//                            height = 25.dp,
+//                        ),
+//                        painter = painterResource(id = R.drawable.cat),
+//                        contentDescription = "maca",
+//
+//                )
                 Text(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 16.dp)
                         .weight(weight = 1f),
-                    text = cat.details
+                    text = cat.lifeSpan
                 )
 
                 AppIconButton(
+                    modifier = Modifier,
                     imageVector = Icons.Default.KeyboardArrowRight,
                     onClick = {}
                 )
@@ -149,7 +158,7 @@ private fun CatListItem(
 
 @Composable
 fun AppIconButton(
-
+    modifier: Modifier,
     imageVector: ImageVector,
     onClick: () -> Unit
 ){
@@ -167,7 +176,7 @@ fun AppIconButton(
 @Composable
 fun HelloCompPreview(){
     CatalistTheme {
-        HelloComp(
+        CatsListScreen(
             cats = SampleCats,
             onCatClick = {},
         )
