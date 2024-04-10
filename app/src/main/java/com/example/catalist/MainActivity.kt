@@ -11,8 +11,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CatalistTheme {
                 // A surface container using the 'background' color from the theme
-               CatsListScreen(cats = SampleCats,
-                   onCatClick = {},)
+                AppNavigation()
             }
         }
     }

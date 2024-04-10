@@ -39,7 +39,8 @@ import com.example.catalist.ui.theme.CatalistTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CatDetailsScreen(
-    cat : CatData
+    cat : CatData,
+    onBackClick : () -> Unit
 ){
     Scaffold (
 
@@ -55,7 +56,7 @@ fun CatDetailsScreen(
                                         width = 15.dp,
                                         height = 15.dp
                                     ),imageVector = Icons.Default.ArrowBack
-                                    , onClick = {})
+                                    , onClick = onBackClick)
                                 }
                     )
                 Divider()
@@ -145,6 +146,8 @@ fun CatDetailsScreenPreview(){
                  "igrase"
              )
         )
+            ,
+            onBackClick = {}
         )
 
     }

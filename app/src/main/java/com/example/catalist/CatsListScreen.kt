@@ -1,7 +1,10 @@
 package com.example.catalist
 
+import androidx.compose.foundation.Image
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,23 +12,36 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.ArrowForward
+
 import androidx.compose.material.icons.filled.Search
+
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.catalist.ui.theme.CatalistTheme
@@ -36,7 +52,8 @@ import com.example.catalist.ui.theme.CatalistTheme
 @Composable
 fun CatsListScreen(
     cats : List<CatData>,
-    onCatClick: (CatData) -> Unit
+    onCatClick: (CatData) -> Unit,
+    onSearchClick: () -> Unit,
 ) {
         Scaffold (
 
@@ -51,52 +68,55 @@ fun CatsListScreen(
 
             floatingActionButton = {
 
-                                    FloatingActionButton(
-                                        onClick = {}) {
+                FloatingActionButton(
+                    onClick = onSearchClick,
+                    containerColor = Color.Yellow
 
-                                            Icon(
-                                                imageVector = Icons.Default.Search,
-                                                contentDescription = "searchButton"
-                                            )
+                ) {
 
-                                    }
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "searchButton"
+                    )
+
+                }
 
             },
             content = {
                 paddingValues ->
 
+
                 Column (
                     modifier = Modifier
+                        .verticalScroll(rememberScrollState())
                         .fillMaxSize()
                         .padding(paddingValues),
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ){
-                    Spacer(modifier = Modifier.padding(vertical = 15.dp))
+                    Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
-                   cats.forEach{
-                       Column {
-                           key(it.id){
-                               CatListItem(
-                                   cat = it,
-                                   onClick = {
-                                       onCatClick(it)
-                                   }
-                                   )
-                           }
 
-                           Spacer(modifier = Modifier.height(10.dp))
-                       }
-                   }
+                            cats.forEach {
+                                Column {
+                                    key(it.id) {
+                                        CatListItem(
+                                            cat = it,
+                                            onClick = {
+                                                onCatClick(it)
+                                            }
+                                        )
+                                    }
+
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                }
+                            }
+
+
                 }
             }
 
         )
-
-
-
-
-
 }
 
 @Composable
@@ -105,53 +125,56 @@ private fun CatListItem(
     onClick: () -> Unit
 ) {
     Card(
+        shape = RoundedCornerShape(8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color(197, 153, 150, 255)
+        ),
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)
-            .clickable { onClick() }
+            .padding(20.dp, 5.dp, 20.dp, 10.dp)
+            .clickable {
+                onClick()
+            },
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 10.dp,
+        )
     ) {
+        Column(
+        ) {
 
-        Column() {
-
-            Text(
-                modifier = Modifier.padding(all = 16.dp)
-                ,text = cat.raceName
-
+            Image(
+                painter = painterResource(R.drawable.cat),
+                contentDescription = null, // decorative
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .height(150.dp)
+                    .fillMaxWidth()
             )
-            Row{
-//                Image(
-//                    painter = painterResource(id = context.resources.getIdentifier("cat", "drawable", context.packageName)),
-//                    contentDescription = "cat",
-//                    modifier = Modifier
-//                        .size(25.dp)
-//                        .padding(horizontal = 16.dp, vertical = 8.dp)
-//                )
-//                Image(
-//                        modifier = Modifier.size(
-//                            width = 25.dp,
-//                            height = 25.dp,
-//                        ),
-//                        painter = painterResource(id = R.drawable.cat),
-//                        contentDescription = "maca",
-//
-//                )
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(bottom = 16.dp)
-                        .weight(weight = 1f),
-                    text = cat.lifeSpan
-                )
-
-                AppIconButton(
-                    modifier = Modifier,
-                    imageVector = Icons.Default.KeyboardArrowRight,
-                    onClick = {}
-                )
+            Row {
+                Column(modifier = Modifier
+                    .padding(16.dp)
+                    .weight(1f)) {
+                    Text(
+                        text = cat.raceName,
+                        style = MaterialTheme.typography.titleMedium,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Text(
+                        text = cat.details,
+                        //maxLines = 1,
+                        //overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.titleSmall,
+                    )
+                }
+                Box(modifier = Modifier,
+                    contentAlignment = Alignment.BottomEnd
+                    ) {
+                    AppIconButton(modifier = Modifier.fillMaxSize(),
+                        imageVector = Icons.Default.ArrowForward, onClick = {  })
+                }
             }
-
         }
-
     }
 }
 
@@ -179,6 +202,7 @@ fun HelloCompPreview(){
         CatsListScreen(
             cats = SampleCats,
             onCatClick = {},
+            onSearchClick = {},
         )
     }
 }
