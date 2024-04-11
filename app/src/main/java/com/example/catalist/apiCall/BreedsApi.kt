@@ -1,5 +1,6 @@
-package com.example.catalist
+package com.example.catalist.apiCall
 
+import com.example.catalist.apiCall.model.BreedsApiModel
 import retrofit2.http.GET
 
 interface BreedsApi {

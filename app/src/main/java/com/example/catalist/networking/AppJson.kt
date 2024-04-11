@@ -1,4 +1,4 @@
-package com.example.catalist
+package com.example.catalist.networking
 
 
 import kotlinx.serialization.json.Json

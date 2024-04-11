@@ -1,4 +1,8 @@
-package com.example.catalist
+package com.example.catalist.repository
+
+import com.example.catalist.apiCall.BreedsApi
+import com.example.catalist.apiCall.model.BreedsApiModel
+import com.example.catalist.networking.retrofit
 
 object BreedsRepository {
 
@@ -6,6 +10,7 @@ object BreedsRepository {
 
     suspend fun fetchAllBreeds(): List<BreedsApiModel>{
         val breeds = breedsApi.getAllBreeds()
+
 
         return breeds
     }

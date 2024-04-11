@@ -1,4 +1,4 @@
-package com.example.catalist
+package com.example.catalist.errlod
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.catalist.R
 import com.example.catalist.ui.theme.CatalistTheme
 
 @Composable
@@ -35,7 +36,7 @@ fun ErrorScreen() {
 
             Text(
                 modifier = Modifier.padding(20.dp,10.dp,6.dp,10.dp),
-                text = "Ooops, looks like you have run into the problem...",
+                text = "Hold on be patient it's loading..... or it just broke :(",
                 fontSize = 25.sp)
 
             Image(
@@ -45,6 +46,8 @@ fun ErrorScreen() {
                     .height(150.dp)
                     .fillMaxWidth()
             )
+
+
 
 
 

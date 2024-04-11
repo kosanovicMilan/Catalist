@@ -1,4 +1,4 @@
-package com.example.catalist
+package com.example.catalist.networking
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import okhttp3.MediaType.Companion.toMediaType

@@ -1,4 +1,6 @@
-package com.example.catalist
+package com.example.catalist.list
+
+import com.example.catalist.list.model.CatUIData
 
 interface BreedListContract {
 

@@ -1,4 +1,4 @@
-package com.example.catalist
+package com.example.catalist.junk
 
 object CatsRepository {
     private var mutableCats = SampleCats.toMutableList();

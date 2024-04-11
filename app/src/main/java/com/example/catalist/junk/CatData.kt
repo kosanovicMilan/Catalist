@@ -1,4 +1,4 @@
-package com.example.catalist
+package com.example.catalist.junk
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

@@ -1,7 +1,11 @@
-package com.example.catalist
+package com.example.catalist.list
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.catalist.list.model.CatUIData
+import com.example.catalist.apiCall.model.BreedsApiModel
+import com.example.catalist.repository.BreedsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -31,10 +35,13 @@ class BreedListViewModel(
                     reposytory.fetchAllBreeds().map { it.asBreedUiModel() }
                 }
 
+
                 setState { copy(breeds = breeds) }
 
-            } catch (error: Exception) {
+                Log.d("BreedList","Dohatio rase: $breeds")
 
+            } catch (error: Exception) {
+                Log.e("BreedList","PUKLO JE NESTO",error)
             } finally {
                 setState { copy(loading = false) }
             }
@@ -44,12 +51,17 @@ class BreedListViewModel(
     private fun BreedsApiModel.asBreedUiModel() = CatUIData(
         id = this.id,
         name = this.name,
+        temperament = this.temperament,
+        origin = this.origin,
         description = this.description,
         life_span = this.life_span,
-        url = this.url,
-        origin = this.origin,
-        temperament = this.temperament,
-        trait = this.trait
+        weight = this.weight.imperial,
+        energy_level = this.energy_level,
+        hypoallergenic = this.energy_level,
+        grooming = this.grooming,
+        intelligence = this.intelligence,
+        stranger_friendly = this.stranger_friendly,
+        vocalisation = this.vocalisation
 
     )
 }
