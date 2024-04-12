@@ -3,7 +3,7 @@ package com.example.catalist.list
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.catalist.list.model.CatUIData
+import com.example.catalist.uimodel.CatUIData
 import com.example.catalist.apiCall.model.BreedsApiModel
 import com.example.catalist.repository.BreedsRepository
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +35,9 @@ class BreedListViewModel(
                     reposytory.fetchAllBreeds().map { it.asBreedUiModel() }
                 }
 
+                val breed = reposytory.fetchOneBreed("abys")
 
+                Log.d("OneBread","dohvatio nesto $breed")
                 setState { copy(breeds = breeds) }
 
                 Log.d("BreedList","Dohatio rase: $breeds")
@@ -61,7 +63,10 @@ class BreedListViewModel(
         grooming = this.grooming,
         intelligence = this.intelligence,
         stranger_friendly = this.stranger_friendly,
-        vocalisation = this.vocalisation
+        vocalisation = this.vocalisation,
+        alt_names = this.alt_names,
+        social_needs = this.social_needs,
+        wikipedia_url = this.wikipedia_url
 
     )
 }

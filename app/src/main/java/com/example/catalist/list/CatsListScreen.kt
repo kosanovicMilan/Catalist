@@ -1,5 +1,6 @@
 package com.example.catalist.list
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,7 +33,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.catalist.compose.CatListItem
-import com.example.catalist.list.model.CatUIData
+import com.example.catalist.uimodel.CatUIData
 import com.example.catalist.errlod.ErrorScreen
 
 
@@ -46,6 +47,7 @@ fun NavGraphBuilder.breeds(
     val breedListViewModel = viewModel<BreedListViewModel>()
 
     val state = breedListViewModel.state.collectAsState()
+
 
     CatsListScreen(
         state = state.value,
@@ -119,7 +121,9 @@ fun CatsListScreen(
                                 key(it.id) {
                                     CatListItem(
                                         cat = it,
-                                        onClick = { onCatClick(it.id) }
+                                        onClick = { onCatClick(it.id)
+                                            Log.d("macaClick","klikno iz liste macu:  ${it.id}")
+                                        }
                                     )
                                 }
                             }
@@ -161,7 +165,11 @@ class PreviewList : PreviewParameterProvider<BreedListContract.BreedListState>{
                     hypoallergenic = 1,
                     intelligence = 2,
                     stranger_friendly = 3,
-                    vocalisation = 4
+                    vocalisation = 4,
+                    alt_names = "",
+                    social_needs = 4,
+                    wikipedia_url = "https://en.wikipedia.org/wiki/American_Bobtail"
+                    
                         ),
                 CatUIData(
                     id="cat2",
@@ -176,13 +184,17 @@ class PreviewList : PreviewParameterProvider<BreedListContract.BreedListState>{
                     hypoallergenic = 1,
                     intelligence = 2,
                     stranger_friendly = 3,
-                    vocalisation = 4
+                    vocalisation = 4,
+                            alt_names = "Britny",
+                    social_needs = 4,
+                    wikipedia_url = "https://en.wikipedia.org/wiki/American_Bobtail"
+
                 ),
                 CatUIData(
                     id="cat3",
                     name="Scotish",
                     description = "wild cats that love to play",
-                    origin = "SRB",
+                    origin = "Serbia",
                     life_span = "15 - 20",
                     temperament = "funny,strong,temper,angty",
                     weight = "12-20",
@@ -191,7 +203,11 @@ class PreviewList : PreviewParameterProvider<BreedListContract.BreedListState>{
                     hypoallergenic = 1,
                     intelligence = 2,
                     stranger_friendly = 3,
-                    vocalisation = 4
+                    vocalisation = 4,
+                    alt_names = "Scot",
+                    social_needs = 4,
+                    wikipedia_url = "https://en.wikipedia.org/wiki/American_Bobtail"
+
                 )
             )
 

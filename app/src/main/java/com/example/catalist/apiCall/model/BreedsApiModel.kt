@@ -12,12 +12,15 @@ data class BreedsApiModel(
     val description: String,
     @SerialName("origin") val origin: String,
     val life_span : String,
+    val alt_names : String,
     val temperament : String,
     val grooming : Int?,
     val energy_level : Int?,
     val intelligence : Int?,
     val stranger_friendly : Int?,
     val vocalisation : Int?,
+    val social_needs : Int?,
+    val wikipedia_url : String,
     val hypoallergenic : Int?,
     //@SerialName("image") val image: ImageCat
 )

@@ -1,6 +1,6 @@
 package com.example.catalist.list
 
-import com.example.catalist.list.model.CatUIData
+import com.example.catalist.uimodel.CatUIData
 
 interface BreedListContract {
 

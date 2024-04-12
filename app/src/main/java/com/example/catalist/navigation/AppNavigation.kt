@@ -1,6 +1,7 @@
 package com.example.catalist.navigation
 
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavBackStackEntry
@@ -27,6 +28,7 @@ fun AppNavigation() {
         breeds(
             route = "cats",
             onCatClick = {
+                Log.d("macaClick","u nav klinko na macu: $it")
                 navController.navigate(route = "cats/$it")
             },
             onSearchClik = {
@@ -35,7 +37,7 @@ fun AppNavigation() {
         )
 
         details(
-            route = "cats/{catId}",
+            route = "cats/{id}",
             onBackClick = {
                 navController.navigateUp()
             }
