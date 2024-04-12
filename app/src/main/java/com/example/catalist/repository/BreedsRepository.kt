@@ -14,4 +14,10 @@ object BreedsRepository {
 
         return breeds
     }
+
+    suspend fun fetchOneBreed(breedId : String) : BreedsApiModel{
+        val breed = breedsApi.getBreed(breedId = breedId)
+
+        return breed
+    }
 }
