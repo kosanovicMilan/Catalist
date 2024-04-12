@@ -7,6 +7,7 @@ import com.example.catalist.uimodel.CatUIData
 import com.example.catalist.apiCall.model.BreedsApiModel
 import com.example.catalist.repository.BreedsRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -41,9 +42,10 @@ class BreedListViewModel(
                 setState { copy(breeds = breeds) }
 
                 Log.d("BreedList","Dohatio rase: $breeds")
-
+                delay(2000)
             } catch (error: Exception) {
                 Log.e("BreedList","PUKLO JE NESTO",error)
+                setState { copy(error = true) }
             } finally {
                 setState { copy(loading = false) }
             }
@@ -64,9 +66,9 @@ class BreedListViewModel(
         intelligence = this.intelligence,
         stranger_friendly = this.stranger_friendly,
         vocalisation = this.vocalisation,
-        alt_names = this.alt_names,
         social_needs = this.social_needs,
-        wikipedia_url = this.wikipedia_url
+        wikipedia_url = this.wikipedia_url,
+        image_url = this.image?.url
 
     )
 }

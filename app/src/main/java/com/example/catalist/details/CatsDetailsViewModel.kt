@@ -7,6 +7,7 @@ import com.example.catalist.apiCall.model.BreedsApiModel
 import com.example.catalist.uimodel.CatUIData
 import com.example.catalist.repository.BreedsRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.getAndUpdate
@@ -38,10 +39,10 @@ class CatsDetailsViewModel(
                 Log.d("macaClick","navodno je dohvatio u view modelu...")
 
                 val trueBreed = breed.asBreedUiModel()
-               // Log.d("macaClick","Nije dobro nesto: $trueBreed")
-                setState { copy(loading = false, breed = trueBreed,breedId = breedId) }
 
-
+                setState { copy(breed = trueBreed,breedId = breedId) }
+                delay(1000)
+                Log.d("BreedList","ovo je jedan breed $trueBreed")
             }catch (error : Exception){
                 setState { copy(error = true) }
                 Log.d("ERRONE","Nije dobro nesto: $error")
@@ -60,7 +61,6 @@ class CatsDetailsViewModel(
         origin = this.origin,
         description = this.description,
         life_span = this.life_span,
-        alt_names = this.alt_names,
         weight = this.weight.imperial,
         energy_level = this.energy_level,
         hypoallergenic = this.energy_level,
@@ -69,7 +69,8 @@ class CatsDetailsViewModel(
         stranger_friendly = this.stranger_friendly,
         vocalisation = this.vocalisation,
         social_needs = this.social_needs,
-        wikipedia_url = this.wikipedia_url
+        wikipedia_url = this.wikipedia_url,
+        image_url = this.image?.id
 
 
     )

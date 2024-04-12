@@ -1,6 +1,12 @@
 package com.example.catalist.compose
 
 import android.util.Log
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,8 +28,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
@@ -120,13 +129,17 @@ fun CatListItem(
         val list = cat.temperament.split(",")
         Column(
         ) {
-            RemoteImage(
-                url = "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg",
-                contentDescription = "Cat Image",
-                modifier = Modifier
-                    .height(150.dp)
-                    .fillMaxWidth()
-            )
+
+//                cat.image_url?.let {
+                    RemoteImage(
+                        url = "https://cdn2.thecatapi.com/images/_6x-3TiCA.jpg",
+                        contentDescription = "Cat Image",
+                        modifier = Modifier
+                            .height(150.dp)
+                            .fillMaxWidth()
+                    )
+                //}
+
             Row(modifier = Modifier.padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween) {
                 Column(modifier = Modifier
@@ -170,6 +183,33 @@ fun CatListItem(
         }
     }
 }
+@Composable
+fun RotatingImage(
+    painter: Painter,
+    contentDescription: String?,
+    modifier: Modifier = Modifier
+) {
+    // Koristimo rememberInfiniteTransition za kontinuiranu rotaciju
+    val infiniteTransition = rememberInfiniteTransition()
+
+    // Definišemo animaciju za rotaciju
+    val rotation by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 360f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        )
+    )
+
+    // Prikažemo sliku sa animacijom rotacije
+    Image(
+        painter = painter,
+        contentDescription = contentDescription,
+        modifier = modifier
+            .rotate(rotation) // Rotiramo sliku
+    )
+}
 
 @Preview(showBackground = true)
 @Composable
@@ -177,8 +217,8 @@ fun CardPreview(){
     CatalistTheme {
 
         CatListItem(cat = CatUIData("1","12 - 20","Mily Ramondy","The dangerous animal on planet, love to play with tennis ball.They love night walks by the beech",
-            "SRB", life_span = "10 - 25","Gooddddddddddd,Better,Nice,Angry,Cold","cao",5,4,4,2,3,5,"https://en.wikipedia.org/wiki/American_Bobtail"
-                   ,1
+            "SRB", life_span = "10 - 25","Gooddddddddddd,Better,Nice,Angry,Cold",5,4,4,2,3,5,
+                   1,"nesto","nesto"
 
         ),
             onClick = {})

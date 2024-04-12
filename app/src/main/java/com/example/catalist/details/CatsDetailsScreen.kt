@@ -49,6 +49,7 @@ import androidx.navigation.compose.composable
 import com.example.catalist.compose.AppIconButton
 import com.example.catalist.compose.BreedImage
 import com.example.catalist.errlod.ErrorScreen
+import com.example.catalist.errlod.LoadingScreen
 import com.example.catalist.uimodel.CatUIData
 
 fun NavGraphBuilder.details(
@@ -84,6 +85,21 @@ fun CatDetailsScreen(
     state : BreedDetailsContract.BreedDetailsState,
     onBackClick : () -> Unit
 ){
+    if(state.loading && !state.error) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            LoadingScreen()
+        }
+    }else if(state.error){
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            ErrorScreen()
+        }
+    }else {
     Scaffold (
 
         topBar = {
@@ -121,21 +137,7 @@ fun CatDetailsScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ){
 
-                if(state.loading && !state.error) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        ErrorScreen()
-                    }
-                }else if(state.error){
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(text = "ERORRRR")
-                    }
-                }else {
+
                     val breed = state.breed
 
                     if (breed != null) {
@@ -179,31 +181,39 @@ fun CatDetailsScreen(
                                 text = breed.description,
                                 fontSize = 20.sp
                             )
-                            Divider(modifier = Modifier.width(250.dp).padding(3.dp),
+                            Divider(modifier = Modifier
+                                .width(250.dp)
+                                .padding(3.dp),
                                 color = Color(81, 80, 140, 255))
 
 
-                            if(!breed.alt_names.equals("")){
-                                Text(text = "Alternative names: ${breed.alt_names}",
-                                    fontSize = 20.sp)
-                            }else{
-                                Text(text = "Alternative names: no alternative names",
-                                    fontSize = 20.sp)
-                            }
+//                            if(!breed.alt_names.equals("")){
+//                                Text(text = "Alternative names: ${breed.alt_names}",
+//                                    fontSize = 20.sp)
+//                            }else{
+//                                Text(text = "Alternative names: no alternative names",
+//                                    fontSize = 20.sp)
+//                            }
 
-                            Divider(modifier = Modifier.width(250.dp).padding(3.dp),
+                            Divider(modifier = Modifier
+                                .width(250.dp)
+                                .padding(3.dp),
                                 color = Color(81, 80, 140, 255))
                             Text(
                                 text = "Life span: ${breed.life_span} years",
                                 fontSize = 20.sp
                             )
-                            Divider(modifier = Modifier.width(250.dp).padding(3.dp),
+                            Divider(modifier = Modifier
+                                .width(250.dp)
+                                .padding(3.dp),
                                 color = Color(81, 80, 140, 255))
                             Text(
                                 text = "Weight: ${breed.weight} pounds",
                                 fontSize = 20.sp
                             )
-                            Divider(modifier = Modifier.width(250.dp).padding(3.dp),
+                            Divider(modifier = Modifier
+                                .width(250.dp)
+                                .padding(3.dp),
                                 color = Color(81, 80, 140, 255))
                             listOf(
                                 "Grooming" to breed.grooming,
@@ -228,7 +238,9 @@ fun CatDetailsScreen(
                                     }
                                 }
                             }
-                           FindMoreButton(breed.wikipedia_url)
+
+                            breed.wikipedia_url?.let { FindMoreButton(url = it) }
+
                         }
                     }
                     else {
@@ -236,10 +248,11 @@ fun CatDetailsScreen(
                     }
                 }
 
-            }
+
         }
 
     )
+}
 }
 @Composable
 fun FindMoreButton(
@@ -288,9 +301,10 @@ class PreviewBreed : PreviewParameterProvider<BreedDetailsContract.BreedDetailsS
                 intelligence = 2,
                 stranger_friendly = 3,
                 vocalisation = 4,
-                alt_names = "Britny",
                 social_needs = 4,
-                wikipedia_url = "https://en.wikipedia.org/wiki/American_Bobtail"
+
+                wikipedia_url = "nesto",
+                image_url = "nesto"
             ),
             loading = false,
             error = false

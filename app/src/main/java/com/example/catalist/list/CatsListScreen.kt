@@ -33,8 +33,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.catalist.compose.CatListItem
-import com.example.catalist.uimodel.CatUIData
 import com.example.catalist.errlod.ErrorScreen
+import com.example.catalist.uimodel.CatUIData
+import com.example.catalist.errlod.LoadingScreen
 
 
 fun NavGraphBuilder.breeds(
@@ -64,13 +65,31 @@ fun CatsListScreen(
     onCatClick: (String) -> Unit,
     onSearchClick: () -> Unit,
 ) {
-        Scaffold (
+    if(state.loading && !state.error){
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center,
+        ) {
+            LoadingScreen()
+        }
+    }else if(state.error){
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center,
+        ) {
+            ErrorScreen()
+        }
+    }
+    else {
+        Scaffold(
 
             topBar = {
                 Column(
 
                 ) {
-                    CenterAlignedTopAppBar(title = { Text(text = "CatsList")})
+                    CenterAlignedTopAppBar(title = { Text(text = "CatsList") })
                     Divider()
                 }
             },
@@ -91,51 +110,40 @@ fun CatsListScreen(
                 }
 
             },
-            content = {
-                paddingValues ->
+            content = { paddingValues ->
 
-                if(state.loading){
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(paddingValues),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        ErrorScreen()
-                    }
-                }
-                else {
-                    Column(
-                        modifier = Modifier
-                            .verticalScroll(rememberScrollState())
-                            .fillMaxSize()
-                            .padding(paddingValues),
-                        verticalArrangement = Arrangement.Top,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxSize()
+                        .padding(paddingValues),
+                    verticalArrangement = Arrangement.Top,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
 
-                        val list = state.breeds
+                    val list = state.breeds
 
-                            list.forEach {
+                    list.forEach {
 
-                                key(it.id) {
-                                    CatListItem(
-                                        cat = it,
-                                        onClick = { onCatClick(it.id)
-                                            Log.d("macaClick","klikno iz liste macu:  ${it.id}")
-                                        }
-                                    )
+                        key(it.id) {
+                            CatListItem(
+                                cat = it,
+                                onClick = {
+                                    onCatClick(it.id)
+                                    Log.d("macaClick", "klikno iz liste macu:  ${it.id}")
                                 }
-                            }
-
-                            }
+                            )
                         }
-
+                    }
 
                 }
+
+
+            }
 
 
         )
+    }
 }
 
 
@@ -166,10 +174,9 @@ class PreviewList : PreviewParameterProvider<BreedListContract.BreedListState>{
                     intelligence = 2,
                     stranger_friendly = 3,
                     vocalisation = 4,
-                    alt_names = "",
                     social_needs = 4,
-                    wikipedia_url = "https://en.wikipedia.org/wiki/American_Bobtail"
-                    
+                    wikipedia_url = "nesto",
+                    image_url = "nesto"
                         ),
                 CatUIData(
                     id="cat2",
@@ -185,10 +192,10 @@ class PreviewList : PreviewParameterProvider<BreedListContract.BreedListState>{
                     intelligence = 2,
                     stranger_friendly = 3,
                     vocalisation = 4,
-                            alt_names = "Britny",
                     social_needs = 4,
-                    wikipedia_url = "https://en.wikipedia.org/wiki/American_Bobtail"
 
+                    wikipedia_url = "nesto",
+                    image_url = "nesto"
                 ),
                 CatUIData(
                     id="cat3",
@@ -204,10 +211,10 @@ class PreviewList : PreviewParameterProvider<BreedListContract.BreedListState>{
                     intelligence = 2,
                     stranger_friendly = 3,
                     vocalisation = 4,
-                    alt_names = "Scot",
                     social_needs = 4,
-                    wikipedia_url = "https://en.wikipedia.org/wiki/American_Bobtail"
 
+                    wikipedia_url = "nesto",
+                    image_url = "nesto"
                 )
             )
 

@@ -1,6 +1,7 @@
 package com.example.catalist.networking
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,6 +27,8 @@ val okHttpClient = OkHttpClient.Builder()
     )
     .build()
 
+
+//private val json = Json { ignoreUnknownKeys = true }
 
 val retrofit: Retrofit = Retrofit.Builder()
     .baseUrl("https://api.thecatapi.com/v1/")

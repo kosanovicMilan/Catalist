@@ -12,7 +12,6 @@ data class BreedsApiModel(
     val description: String,
     @SerialName("origin") val origin: String,
     val life_span : String,
-    val alt_names : String,
     val temperament : String,
     val grooming : Int?,
     val energy_level : Int?,
@@ -20,19 +19,20 @@ data class BreedsApiModel(
     val stranger_friendly : Int?,
     val vocalisation : Int?,
     val social_needs : Int?,
-    val wikipedia_url : String,
+    val wikipedia_url : String? = null ,
     val hypoallergenic : Int?,
-    //@SerialName("image") val image: ImageCat
+    val image: Image? = null
 )
 @Serializable
 data class Weight(
     val imperial: String,
     val metric : String
 )
-//@Serializable
-//data class ImageCat(
-//    val id : String,
-//    val url: String
-//)
+
+@Serializable
+data class Image(
+    val id: String,
+    val url: String,
+)
 
 

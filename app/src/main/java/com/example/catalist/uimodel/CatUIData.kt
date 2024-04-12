@@ -7,7 +7,6 @@ data class CatUIData (
     val description: String,
     val origin: String,
     val life_span : String,
-    val alt_names : String,
     val temperament : String,
     val grooming : Int?,
     val energy_level : Int?,
@@ -15,6 +14,7 @@ data class CatUIData (
     val stranger_friendly : Int?,
     val vocalisation : Int?,
     val social_needs : Int?,
-    val wikipedia_url : String,
     val hypoallergenic : Int?,
+    val wikipedia_url : String? = null,
+    val image_url : String?
 )
