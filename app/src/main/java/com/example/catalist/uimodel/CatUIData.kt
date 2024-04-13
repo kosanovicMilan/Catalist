@@ -16,5 +16,6 @@ data class CatUIData (
     val social_needs : Int?,
     val hypoallergenic : Int?,
     val wikipedia_url : String? = null,
-    val image_url : String?
+    val image_url : String? = null,
+    val reference_image_id : String? =null
 )

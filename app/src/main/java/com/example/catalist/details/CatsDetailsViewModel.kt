@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.catalist.apiCall.model.BreedsApiModel
+import com.example.catalist.apiCall.model.ImageApiModel
 import com.example.catalist.uimodel.CatUIData
 import com.example.catalist.repository.BreedsRepository
 import kotlinx.coroutines.Dispatchers
@@ -38,14 +39,20 @@ class CatsDetailsViewModel(
                 }
                 Log.d("macaClick","navodno je dohvatio u view modelu...")
 
-                val trueBreed = breed.asBreedUiModel()
+                Log.d("BreedList","Ovo sam pokusao id ${breed.id}")
+                val image = withContext(Dispatchers.IO){
+                    repository.getBreedImage(breed.id)
+                }
+                val trIm = image[0]
+                val trueBreed = breed.asBreedUiModel(trIm)
 
                 setState { copy(breed = trueBreed,breedId = breedId) }
                 delay(1000)
                 Log.d("BreedList","ovo je jedan breed $trueBreed")
             }catch (error : Exception){
-                setState { copy(error = true) }
+
                 Log.d("ERRONE","Nije dobro nesto: $error")
+                setState { copy(error = true) }
             }finally {
 
                 setState { copy(loading = false,breedId = breedId) }
@@ -54,7 +61,7 @@ class CatsDetailsViewModel(
         }
     }
 
-    private fun BreedsApiModel.asBreedUiModel() = CatUIData(
+    private fun BreedsApiModel.asBreedUiModel(image:ImageApiModel) = CatUIData(
         id = this.id,
         name = this.name,
         temperament = this.temperament,
@@ -70,7 +77,7 @@ class CatsDetailsViewModel(
         vocalisation = this.vocalisation,
         social_needs = this.social_needs,
         wikipedia_url = this.wikipedia_url,
-        image_url = this.image?.id
+        image_url = image.url
 
 
     )

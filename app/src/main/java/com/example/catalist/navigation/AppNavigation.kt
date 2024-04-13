@@ -11,6 +11,7 @@ import com.example.catalist.details.details
 import com.example.catalist.junk.CatsRepository
 import com.example.catalist.search.CatsSearchScreen
 import com.example.catalist.list.breeds
+import com.example.catalist.search.search
 
 @Composable
 fun AppNavigation() {
@@ -44,16 +45,13 @@ fun AppNavigation() {
 
 
 
-        composable(
-            route = "cats/search"
-        ){
-            CatsSearchScreen(
-                onBackClick = {
-                    navController.navigateUp()
-                              },
-                cats = CatsRepository.allCats()
-            )
-        }
+        search(
+            route = "cats/search",
+            onCatClick = {
+                navController.navigate("cats/$it")
+            },
+            onBackClick = { navController.navigateUp() }
+        )
     }
 }
 

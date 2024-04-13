@@ -35,12 +35,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.example.catalist.R
 import com.example.catalist.uimodel.CatUIData
 import com.example.catalist.ui.theme.CatalistTheme
 
@@ -106,6 +108,19 @@ fun AppIconButton(
     }
 }
 @Composable
+fun LocalImage(
+    drawableId: Int,
+    contentDescription: String,
+    modifier: Modifier = Modifier
+) {
+    val painter: Painter = painterResource(id = drawableId)
+    Image(
+        painter = painter,
+        contentDescription = contentDescription,
+        modifier = modifier.height(150.dp).fillMaxWidth()
+    )
+}
+@Composable
 fun CatListItem(
     cat: CatUIData,
     onClick: () -> Unit
@@ -131,13 +146,13 @@ fun CatListItem(
         ) {
 
 //                cat.image_url?.let {
-                    RemoteImage(
-                        url = "https://cdn2.thecatapi.com/images/_6x-3TiCA.jpg",
-                        contentDescription = "Cat Image",
-                        modifier = Modifier
-                            .height(150.dp)
-                            .fillMaxWidth()
-                    )
+            LocalImage(
+                drawableId = R.drawable.cat,
+                contentDescription = "Cat Image",
+                modifier = Modifier
+                    .height(150.dp)
+                    .fillMaxWidth()
+            )
                 //}
 
             Row(modifier = Modifier.padding(horizontal = 16.dp),

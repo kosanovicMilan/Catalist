@@ -165,7 +165,7 @@ fun CatDetailsScreen(
                                     .padding(8.dp)
                             ) {
                                 BreedImage(
-                                    url = "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg",
+                                    url = "${breed.image_url}",
                                     contentDescription = "Cat Image",
                                     modifier = Modifier
                                         .height(250.dp)
@@ -194,6 +194,19 @@ fun CatDetailsScreen(
 //                                Text(text = "Alternative names: no alternative names",
 //                                    fontSize = 20.sp)
 //                            }
+                            Text(
+                                text = "Temperament: ${breed.temperament}",
+                                fontSize = 20.sp
+                                )
+
+                            Divider(modifier = Modifier
+                                .width(250.dp)
+                                .padding(3.dp),
+                                color = Color(81, 80, 140, 255))
+                            Text(
+                                text = "Country: ${breed.origin}",
+                                fontSize = 20.sp
+                            )
 
                             Divider(modifier = Modifier
                                 .width(250.dp)

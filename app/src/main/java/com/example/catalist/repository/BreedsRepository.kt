@@ -3,6 +3,7 @@ package com.example.catalist.repository
 import android.util.Log
 import com.example.catalist.apiCall.BreedsApi
 import com.example.catalist.apiCall.model.BreedsApiModel
+import com.example.catalist.apiCall.model.ImageApiModel
 import com.example.catalist.networking.retrofit
 
 object BreedsRepository {
@@ -22,5 +23,12 @@ object BreedsRepository {
         Log.d("macaClick","Uspesno je dohvatio jednu rasu...")
         Log.d("macaClick","rasa: ${breed.name}")
         return breed
+    }
+
+    suspend fun getBreedImage(id:String) : List<ImageApiModel>{
+
+        val image = breedsApi.getImage(id)
+
+        return image
     }
 }

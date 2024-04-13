@@ -21,6 +21,7 @@ data class BreedsApiModel(
     val social_needs : Int?,
     val wikipedia_url : String? = null ,
     val hypoallergenic : Int?,
+    val reference_image_id : String? = null,
     val image: Image? = null
 )
 @Serializable
